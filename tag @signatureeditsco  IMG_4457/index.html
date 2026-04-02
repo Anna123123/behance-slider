@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Before / After</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  background: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.slider {
+  position: relative;
+  width: 90%;
+  max-width: 900px;
+  overflow: hidden;
+}
+
+.slider img {
+  width: 100%;
+  display: block;
+}
+
+.after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  overflow: hidden;
+}
+
+.line {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 2px;
+  height: 100%;
+  background: #E88C6A;
+  transform: translateX(-50%);
+}
+
+.handle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid #E88C6A;
+  background: white;
+  transform: translate(-50%, -50%);
+  cursor: ew-resize;
+}
+
+.label {
+  position: absolute;
+  top: 20px;
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  letter-spacing: 2px;
+  color: white;
+}
+
+.before-label {
+  left: 25px;
+}
+
+.after-label {
+  right: 25px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="slider" id="slider">
+  <img src="before.jpg" alt="Before">
+
+  <div class="after" id="after">
+    <img src="after.jpg" alt="After">
+  </div>
+
+  <div class="line" id="line"></div>
+  <div class="handle" id="handle"></div>
+
+  <div class="label before-label">BEFORE</div>
+  <div class="label after-label">AFTER</div>
+</div>
+
+<script>
+const slider = document.getElementById('slider');
+const after = document.getElementById('after');
+const handle = document.getElementById('handle');
+const line = document.getElementById('line');
+
+slider.addEventListener('mousemove', (e) => {
+  const rect = slider.getBoundingClientRect();
+  let x = e.clientX - rect.left;
+
+  if (x < 0) x = 0;
+  if (x > rect.width) x = rect.width;
+
+  const percent = (x / rect.width) * 100;
+
+  after.style.width = percent + '%';
+  handle.style.left = percent + '%';
+  line.style.left = percent + '%';
+});
+</script>
+
+</body>
+</html>
